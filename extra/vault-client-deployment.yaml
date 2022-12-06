@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vault-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vault-client
+  template:
+    metadata:
+      labels:
+        app: vault-client
+    spec:
+      containers:
+      - name: vault-pod-client
+        image: estefaniia04/miimagenvault:latest
+        ports:
+        - containerPort: 8200
+        env:
+        - name: VAULT_ADDR
+          value: "http://localhost:8200"
+        - name: VAULT_TOKEN
+          value: "contra"
+
