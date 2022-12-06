@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mivault
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mivault
+  template:
+    metadata:
+      labels:
+        app: mivault
+    spec:
+      containers:
+      - name: mivaultkuber
+        image: vault:latest
+        ports:
+        - containerPort: 8200
+        env:
+        - name: VAULT_DEV_ROOT_TOKEN_ID
+          value: "contra"
+        - name: VAULT_DEV_LISTEN_ADDRESS
+          value: "localhost:8200"
+        - name: VAULT_ADDR
+          value: "http://localhost:8200"
+        #volumeMounts:
+        #- name: vault-data
+         # mountPath: /vault/file
+      #volumes:
+      #- name: vault-data
+      #  emptyDir: {}
+
